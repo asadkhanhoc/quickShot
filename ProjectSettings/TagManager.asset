@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Villains
   - Wall
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Player
   - Bullet
   - Wall
-  - 
+  - Box
   - 
   - 
   - 

@@ -5,10 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed;
-    //private Rigidbody2D rb;
 
-    //public Vector3 fixedHeight; // The Y position villains should stay at
-   
+    private Vector2 direction; // The current movement direction
 
     Player playerScript;
 
@@ -19,7 +17,10 @@ public class Enemy : MonoBehaviour
     {
        
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        
+
+        // Set an initial direction, e.g., moving right
+        direction = Vector2.left;
+
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour
         // Keep Y position fixed at ground level or above
         //if (transform.position.y < fixedHeight.y)
         //{
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
+            transform.Translate(direction * speed * Time.deltaTime);
         //}
     }
 
@@ -55,6 +56,14 @@ public class Enemy : MonoBehaviour
         {
             Destroy(hitObject.gameObject); // Destroy the bullet
             Destroy(gameObject); // Destroy the villain
+        }
+
+        // Check if the object that triggered the event is tagged as a "Bullet"
+        if (hitObject.CompareTag("Box"))
+        {
+            // Reverse the direction
+            direction = -direction; // Change direction
+
         }
 
     }

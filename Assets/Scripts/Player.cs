@@ -75,10 +75,11 @@ public class Player : MonoBehaviour
         input = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(input * speed , rb.velocity.y);
 
-        // Jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) // Check if grounded before jumping
+        // Check for jump input
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Apply upward force
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Set the vertical velocity
+            isGrounded = false;
         }
     }
 
@@ -102,14 +103,6 @@ public class Player : MonoBehaviour
         {
             losePanel.SetActive(true);
             Destroy(gameObject);
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = false;
         }
     }
 }
