@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
-public class Speed : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
+    //[SerializeField] private float bulletspeed = 10f;
 
     // Gun variables
     [SerializeField] private GameObject bulletPrefab;
@@ -13,13 +15,24 @@ public class Speed : MonoBehaviour
     [Range(0.1f, 2f)]
     [SerializeField] private float fireRate = 0.5f;
 
-    private Rigidbody2D rb;
-    private float mx;
-    private float my;
 
+    public float jumpForce = 10f; // Jump force
+    private bool isGrounded; // Check if the character is on the ground
+
+    public GameObject losePanel;
+
+    private Rigidbody2D rb;
+   
+
+    private float input;
+
+    public float speed;
     private float fireTimer;
 
     private Vector2 mousePos;
+
+    public int health;
+    public Text healthDisplay;
 
     // Start is called before the first frame update
     void Start()
@@ -30,14 +43,15 @@ public class Speed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mx = Input.GetAxisRaw("Horizontal");
-        my = Input.GetAxisRaw("Vertical");
+        if (input > 0)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (input < 0)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
 
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f;
-
-        transform.localRotation = Quaternion.Euler(0, 0, angle);
 
         if (Input.GetMouseButton(0) && fireTimer <= 0f)
         {
@@ -46,8 +60,9 @@ public class Speed : MonoBehaviour
         }
         else
         {
-            fireTimer -= Time.deltaTime;        }
-       
+            fireTimer -= Time.deltaTime;
+        }
+
     }
 
     private void Shoot()
@@ -57,6 +72,44 @@ public class Speed : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(mx, my).normalized * speed;
+        input = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(input * speed , rb.velocity.y);
+
+        // Jump
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) // Check if grounded before jumping
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Apply upward force
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Ground check (simple, assumes ground has a tag "Ground")
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        //source.Play();
+        health -= damageAmount;
+        healthDisplay.text = health.ToString();
+
+        if (health <= 0)
+        {
+            losePanel.SetActive(true);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = false;
+        }
     }
 }
