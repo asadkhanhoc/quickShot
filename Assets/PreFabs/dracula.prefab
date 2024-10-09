@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 533590803696166576}
   - component: {fileID: 41619166049928572}
   - component: {fileID: 1598813564908327242}
-  - component: {fileID: 2882827476786253963}
   - component: {fileID: 511464586320239463}
+  - component: {fileID: 4080458729144515467}
   m_Layer: 6
   m_Name: dracula
   m_TagString: Villains
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 798021166, guid: 591345e455c2ed947a2e663205f9e101, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -114,20 +114,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2882827476786253963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5026023725455606692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c01d87815acf8409232fd5ebea61bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  damage: 1
 --- !u!61 &511464586320239463
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,3 +159,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.54, y: 7.74}
   m_EdgeRadius: 0
+--- !u!114 &4080458729144515467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5026023725455606692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c01d87815acf8409232fd5ebea61bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  damage: 1
+  scoreText: {fileID: 0}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; // Ensure this is included
 
 public class Enemy : MonoBehaviour
 {
@@ -12,10 +13,15 @@ public class Enemy : MonoBehaviour
 
     public int damage;
 
+    
+   
+
     // Start is called before the first frame update
     void Start()
     {
        
+       
+
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         // Set an initial direction, e.g., moving right
@@ -26,12 +32,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        // Keep Y position fixed at ground level or above
-        //if (transform.position.y < fixedHeight.y)
-        //{
-            transform.Translate(direction * speed * Time.deltaTime);
-        //}
+            transform.Translate(direction * speed * Time.deltaTime);   
     }
 
     void OnTriggerEnter2D(Collider2D hitObject)
@@ -39,9 +40,11 @@ public class Enemy : MonoBehaviour
 
         if (hitObject.tag == "Player")
         {
-            //playerScript.TakeDamage(damage);
+            ScoreManager.Instance.DecrementScore(); // Decrement score when player hits
+            playerScript.TakeDamage(damage);
             //Instantiate(transform.position, Quaternion.identity);
             Destroy(gameObject);
+           
         }
 
         if (hitObject.tag == "Wall")
@@ -54,6 +57,7 @@ public class Enemy : MonoBehaviour
         // Check if the object that triggered the event is tagged as a "Bullet"
         if (hitObject.CompareTag("Bullet"))
         {
+            ScoreManager.Instance.IncrementScore(); // Increment score when bullet hits
             Destroy(hitObject.gameObject); // Destroy the bullet
             Destroy(gameObject); // Destroy the villain
         }
@@ -67,8 +71,4 @@ public class Enemy : MonoBehaviour
         }
 
     }
-
-  
-
-
 }

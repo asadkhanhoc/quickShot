@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8670234567152341918}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,10 +75,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6f2c00e258c043b67cc7cb6e4dc8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   bulletPrefab: {fileID: 8470713854534280738, guid: f12ff14f360e38c4bba35315031dc473, type: 3}
   firingPoint: {fileID: 4649680580622485763}
   fireRate: 0.2
+  jumpForce: 10
+  losePanel: {fileID: 0}
+  speed: 10
+  health: 0
+  healthDisplay: {fileID: 0}
+  winPanel: {fileID: 0}
+  winText: {fileID: 0}
 --- !u!58 &8670234567152341918
 CircleCollider2D:
   m_ObjectHideFlags: 0

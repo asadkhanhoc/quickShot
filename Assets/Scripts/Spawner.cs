@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
 
     public Transform[] spawnPoints;
@@ -16,32 +16,44 @@ public class NewBehaviourScript : MonoBehaviour
 
     public GameObject player;
 
+    private bool stopSpawning = false; // Add a flag to control spawning
+
     // Update is called once per frame
     void Update()
     {
-        if (player != null)
+        if (!stopSpawning)
         {
-            if (timeBtwSpawns <= 0)
+            if (player != null)
             {
-
-                Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                GameObject randomHazard = hazards[Random.Range(0, hazards.Length)];
-
-                Instantiate(randomHazard, randomSpawnPoint.position, Quaternion.identity);
-
-                if (startTimeBtwSpawns > minTimeBetweenSpawns)
+                if (timeBtwSpawns <= 0)
                 {
-                    startTimeBtwSpawns -= decrease;
+
+                    Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                    GameObject randomHazard = hazards[Random.Range(0, hazards.Length)];
+
+                    Instantiate(randomHazard, randomSpawnPoint.position, Quaternion.identity);
+
+                    if (startTimeBtwSpawns > minTimeBetweenSpawns)
+                    {
+                        startTimeBtwSpawns -= decrease;
+                    }
+
+                    timeBtwSpawns = startTimeBtwSpawns;
+
                 }
-
-                timeBtwSpawns = startTimeBtwSpawns;
-
-            }
-            else
-            {
-                timeBtwSpawns -= Time.deltaTime;
+                else
+                {
+                    timeBtwSpawns -= Time.deltaTime;
+                }
             }
         }
 
     }
+
+    // Function to stop spawning
+    public void StopSpawning()
+    {
+        stopSpawning = true; // Set the flag to true to stop further spawning
+    }
+
 }

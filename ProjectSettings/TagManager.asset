@@ -9,11 +9,12 @@ TagManager:
   - Villains
   - Wall
   - Box
+  - Portal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - groundLayer
   - Water
   - UI
   - Villains
@@ -21,7 +22,7 @@ TagManager:
   - Bullet
   - Wall
   - Box
-  - 
+  - Potal
   - 
   - 
   - 
