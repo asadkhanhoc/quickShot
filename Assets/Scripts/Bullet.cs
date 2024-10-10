@@ -5,11 +5,10 @@ using TMPro;
 
 public class Bullet : MonoBehaviour
 {
-    //public GameObject box;
   
    
 
-    [Range(1, 10)]
+    [Range(1, 30)]
     [SerializeField] private float speed = 10f;
 
     [Range(1, 10)]
@@ -24,8 +23,6 @@ public class Bullet : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifeTime);
-
-       // box = GameObject.FindGameObjectWithTag("Box").GetComponent<GameObject>();
 
     }
 

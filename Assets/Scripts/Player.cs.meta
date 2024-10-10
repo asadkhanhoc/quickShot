@@ -3,7 +3,16 @@ guid: afb6f2c00e258c043b67cc7cb6e4dc8d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletPrefab: {fileID: 8470713854534280738, guid: f12ff14f360e38c4bba35315031dc473, type: 3}
+  - firingPoint: {instanceID: 0}
+  - enemySpawner: {instanceID: 0}
+  - healthDisplay: {instanceID: 0}
+  - winPanel: {instanceID: 0}
+  - winText: {instanceID: 0}
+  - losePanel: {instanceID: 0}
+  - loseText: {instanceID: 0}
+  - fireSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

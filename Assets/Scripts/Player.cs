@@ -5,30 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Unity.VisualScripting.Member;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    //[SerializeField] private float bulletspeed = 10f;
 
-    // Gun variables
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firingPoint;
-    [Range(0.1f, 2f)]
-    [SerializeField] private float fireRate = 0.5f;
-
-    public float jumpForce = 10f; // Jump force
-    private bool isGrounded; // Check if the character is on the ground
-
-
-    private Rigidbody2D rb;
-
-    public GameObject enemySpawner; // Reference to the GameObject with the spawning script
-
-    private float input;
-
-    public float speed;
-    private float fireTimer;
-
+    // Score variables
+    public int score = 0; // Add score variable
+    public TMP_Text scoreDisplay; // Reference to score text UI
 
     public int health;
     public TMP_Text healthDisplay;
@@ -39,112 +23,32 @@ public class Player : MonoBehaviour
     public GameObject losePanel;
     public TMP_Text loseText;
 
-    public AudioClip fireSound; // Assign the sound clip in the Inspector
-    private AudioSource audioSource;
+    Rigidbody2D rb;
 
-    // Variables for mobile button input
-    private bool moveLeft = false;
-    private bool moveRight = false;
-    private bool jump = false;
-    private bool shoot = false;
+    public GameObject enemySpawner; // Reference to the GameObject with the spawning script
 
     // Start is called before the first frame update
     void Start()
     {
+ 
+        scoreDisplay.text = "Score: " + score; // Initialize score display
         rb = GetComponent<Rigidbody2D>();
         healthDisplay.text = health.ToString();
-
-        // Get the AudioSource component attached to the player
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
-    { 
-
-        if (shoot && fireTimer <= 0f)
-        {
-            Shoot();
-            fireTimer = fireRate;
-        }
-        else
-        {
-            fireTimer -= Time.deltaTime;
-        }
-
-        // Handle movement input for both keyboard and mobile buttons
-        if (moveLeft)
-        {
-            input = -1;
-        }
-        else if (moveRight)
-        {
-            input = 1;
-        }
-        else
-        {
-            input = Input.GetAxisRaw("Horizontal");
-        }
-
-        // Flip character based on input direction
-        if (input > 0)
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-        else if (input < 0)
-        {
-            transform.eulerAngles = new Vector3(0, 180, 0);
-        }
-
-
-    }
-
-    private void Shoot()
     {
-        // Play the fire sound
-        PlayFireSound();
 
-        Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
-
-        
-    }
-
-    void PlayFireSound()
-    {
-        if (fireSound != null)
-        {
-            audioSource.PlayOneShot(fireSound);
-        }
-    }
-
-
-    private void FixedUpdate()
-    {
-        
-        rb.velocity = new Vector2(input * speed , rb.velocity.y);
-
-        // Check for jump input
-        if (jump && isGrounded)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce); // Set the vertical velocity
-            isGrounded = false;
-            jump = false; // Reset jump after performing it
-        }
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Ground check (simple, assumes ground or box has a tag "Ground")
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Box")
-        {
-            isGrounded = true;
-        }        
-
+                
         // check if player hits the portal
         if (collision.gameObject.tag == "Portal")
         {
-            winText.text = "Congratulations !!! You Passed \r\nLevel 1";
             winPanel.SetActive(true);
             levelEnd();
             StopEnemySpawning(); // Stop the enemy spawner
@@ -161,7 +65,7 @@ public class Player : MonoBehaviour
             foreach (GameObject enemy in enemies)
             {
                 Destroy(enemy);
-            }
+            }   
     }
 
     // Function to stop enemy spawning
@@ -192,43 +96,31 @@ public class Player : MonoBehaviour
             loseText.text = "Oops !! You Are Dead..";
             losePanel.SetActive(true);
             levelEnd();
-            StopEnemySpawning();
+            StopEnemySpawning();       
         }
     }
 
-    // Functions for mobile button input
-    public void OnMoveLeftButtonDown()
+    // Method to increment the score
+    public void IncrementScore()
     {
-        moveLeft = true;
+        score++;
+        UpdateScoreDisplay();
     }
 
-    public void OnMoveLeftButtonUp()
+    // Method to decrement the score
+    public void DecrementScore()
     {
-        moveLeft = false;
+        score = Mathf.Max(0, score - 1); // Prevent negative score
+        UpdateScoreDisplay();
     }
 
-    public void OnMoveRightButtonDown()
+    // Update score display
+    private void UpdateScoreDisplay()
     {
-        moveRight = true;
+        if (scoreDisplay != null)
+        {
+            scoreDisplay.text = "Score: " + score;
+        }
     }
 
-    public void OnMoveRightButtonUp()
-    {
-        moveRight = false;
-    }
-
-    public void OnJumpButtonDown()
-    {
-        jump = true;
-    }
-
-    public void OnShootButtonDown()
-    {
-        shoot = true;
-    }
-
-    public void OnShootButtonUp()
-    {
-        shoot = false;
-    }
 }

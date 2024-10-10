@@ -7,7 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void FinalLevel()
+    {
+        SceneManager.LoadScene("Level3");
     }
 
     public void MainMenu()
