@@ -5273,7 +5273,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.3903394
+  orthographic size: 3.58254
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5317,7 +5317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1135587628}
-  offset: {x: 4, y: 1, z: -10}
+  offset: {x: 4, y: 0.8, z: -10}
   fixedYPosition: 0
 --- !u!1 &402745647
 GameObject:
@@ -6303,8 +6303,8 @@ Transform:
   m_GameObject: {fileID: 482299588}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7046577, w: 0.7095475}
-  m_LocalPosition: {x: 1.475, y: 1.281, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.625, y: 1.283, z: 0}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 92195778}
@@ -12970,7 +12970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   scoreDisplay: {fileID: 1856224744}
-  health: 5
+  health: 3
   healthDisplay: {fileID: 825898053}
   winPanel: {fileID: 687815822}
   winText: {fileID: 1130319599}
@@ -13195,8 +13195,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.2679499, y: 0.6349263}
-  m_Size: {x: 0.9292345, y: 2.2698534}
+  m_Offset: {x: 0.1892231, y: 0.6349263}
+  m_Size: {x: 0.7717809, y: 2.2698534}
   m_Direction: 0
 --- !u!1 &1177022747
 GameObject:
